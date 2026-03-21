@@ -1,4 +1,4 @@
-from streamlit import json
+import json
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
