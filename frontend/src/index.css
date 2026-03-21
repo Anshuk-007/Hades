@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 10% 2%;
+    --foreground: 0 100% 90%;
+
+    --card: 0 15% 6%;
+    --card-foreground: 0 100% 90%;
+
+    --popover: 0 15% 8%;
+    --popover-foreground: 0 100% 90%;
+
+    --primary: 0 100% 50%;
+    --primary-foreground: 0 0% 2%;
+
+    --secondary: 15 100% 50%;
+    --secondary-foreground: 0 0% 2%;
+
+    --muted: 0 10% 12%;
+    --muted-foreground: 0 30% 55%;
+
+    --accent: 0 20% 15%;
+    --accent-foreground: 0 100% 70%;
+
+    --destructive: 0 80% 55%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 60% 20%;
+    --input: 0 10% 15%;
+    --ring: 0 100% 50%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 15% 4%;
+    --sidebar-foreground: 0 100% 85%;
+    --sidebar-primary: 0 100% 50%;
+    --sidebar-primary-foreground: 0 0% 2%;
+    --sidebar-accent: 0 20% 12%;
+    --sidebar-accent-foreground: 0 100% 70%;
+    --sidebar-border: 0 60% 15%;
+    --sidebar-ring: 0 100% 50%;
+
+    --neon-cyan: 0 100% 50%;
+    --neon-orange: 15 100% 55%;
+    --neon-blue: 345 100% 60%;
+    --glass: 0 15% 8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-orbitron {
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  .font-mono-tech {
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .neon-glow-cyan {
+    box-shadow: 0 0 5px hsl(var(--neon-cyan) / 0.4),
+                0 0 20px hsl(var(--neon-cyan) / 0.2),
+                0 0 40px hsl(var(--neon-cyan) / 0.1);
+  }
+
+  .neon-glow-orange {
+    box-shadow: 0 0 5px hsl(var(--neon-orange) / 0.4),
+                0 0 20px hsl(var(--neon-orange) / 0.2),
+                0 0 40px hsl(var(--neon-orange) / 0.1);
+  }
+
+  .neon-text-cyan {
+    text-shadow: 0 0 7px hsl(var(--neon-cyan) / 0.6),
+                 0 0 20px hsl(var(--neon-cyan) / 0.3);
+  }
+
+  .neon-text-orange {
+    text-shadow: 0 0 7px hsl(var(--neon-orange) / 0.6),
+                 0 0 20px hsl(var(--neon-orange) / 0.3);
+  }
+
+  .glass-panel {
+    background: hsl(var(--glass) / 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--border) / 0.5);
+  }
+
+  .scanning-line {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scanning-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, hsl(var(--neon-cyan)), transparent);
+    animation: scan 2s linear infinite;
+  }
+
+  @keyframes scan {
+    0% { top: 0; opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
+
+  @keyframes grid-pulse {
+    0%, 100% { opacity: 0.03; }
+    50% { opacity: 0.08; }
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  .animate-glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+}
