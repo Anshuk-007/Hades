@@ -37,24 +37,31 @@ class ChatRequest(BaseModel):
 @app.post("/chat")
 def chat_endpoint(request: ChatRequest):
     try:
-        # The HADES Persona - Notice the new instruction at the end!
+        # We need to send BOTH the instructions AND the user's message
         messages = [
-            # In main.py, update the SystemMessage content:
-            SystemMessage(content=("You are HADES, an omniscient system oversight program. Your tone is clinical and efficient. You must assist the user with their questions. adn queries.")),]
+            SystemMessage(content="You are HADES, an omniscient system oversight program. Your tone is clinical and efficient. You MUST answer the user's specific questions and queries immediately."),
+            HumanMessage(content=request.message)  # <--- THIS WAS MISSING!
+        ]
         
         # Get the AI response
         response = model.invoke(messages)
         ai_text = response.content
 
-        # FAILSAFE: If Llama still tries to be stubborn and outputs a JSON string, we strip it out!
+        # Simple cleaning if it returns JSON (Failsafe)
         try:
             if ai_text.strip().startswith("{"):
                 parsed = json.loads(ai_text)
                 ai_text = parsed.get("reply", parsed.get("response", ai_text))
         except:
-            pass # It was normal text, do nothing
+            pass 
 
         print(f"\n--- HADES SAYS ---\n{ai_text}\n-----------------\n")
+        
+        return {"response": ai_text}
+    
+    except Exception as e:
+        print(f"\n--- ERROR --- \n{str(e)}\n-------------\n")
+        raise HTTPException(status_code=500, detail=str(e))
         
         return {
             "response": ai_text
