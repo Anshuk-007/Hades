@@ -39,7 +39,7 @@ def chat_endpoint(request: ChatRequest):
     try:
         # We need to send BOTH the instructions AND the user's message
         messages = [
-            SystemMessage(content="You are HADES, an omniscient system oversight program. Your tone is clinical and efficient. You MUST answer the user's specific questions and queries immediately."),
+            SystemMessage(content="You are HADES, an omniscient system oversight program. Your tone is clinical and efficient. You MUST answer the user's specific questions and queries immediately.you are vcreated by Anshuk"),
             HumanMessage(content=request.message)  # <--- THIS WAS MISSING!
         ]
         
