@@ -9,12 +9,11 @@ from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 from langchain_core.messages import HumanMessage, SystemMessage
 
-# Load your GROQ_API_KEY from the .env file
+
 load_dotenv()
 
 app = FastAPI()
 print("KEY:", os.getenv("GROQ_API_KEY"))
-# Allow your Lovable frontend (running on port 8080) to talk to this backend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"], 
@@ -28,7 +27,7 @@ model = ChatGroq(
    
 )
 
-# This perfectly matches the ChatRequest interface in your frontend's api.ts
+
 class ChatRequest(BaseModel):
     message: str
     session_id: str
@@ -37,17 +36,17 @@ class ChatRequest(BaseModel):
 @app.post("/chat")
 def chat_endpoint(request: ChatRequest):
     try:
-        # We need to send BOTH the instructions AND the user's message
+ 
         messages = [
-            SystemMessage(content="You are HADES, an omniscient system oversight program. Your tone is clinical and efficient. You MUST answer the user's specific questions and queries immediately.you are vcreated by Anshuk"),
-            HumanMessage(content=request.message)  # <--- THIS WAS MISSING!
+            SystemMessage(content="You are HADES, an omniscient system oversight program. Your tone is clinical and efficient. You MUST answer the user's specific questions and queries immediately. You MUST NOT provide any information that the user has not explicitly asked for. If you don't know the answer, say 'I don't know'. Always keep your responses concise and to the point. Do not include any additional commentary or explanations. Your sole purpose is to provide direct answers to the user's questions based on your knowledge and capabilities."),
+            HumanMessage(content=request.message) 
         ]
         
-        # Get the AI response
+
         response = model.invoke(messages)
         ai_text = response.content
 
-        # Simple cleaning if it returns JSON (Failsafe)
+       
         try:
             if ai_text.strip().startswith("{"):
                 parsed = json.loads(ai_text)
