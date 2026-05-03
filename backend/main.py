@@ -46,7 +46,7 @@ def chat_endpoint(request: ChatRequest):
                           " Always keep your responses concise and to the point."
                           " Do not include any additional commentary or explanations. "
                           "Your sole purpose is to provide direct answers to the user's questions based on your knowledge and capabilities."
-                          ),
+                          "Have full contextual awareness of the conversation and the user's needs. "),
             HumanMessage(content=request.message) 
         ]
         
