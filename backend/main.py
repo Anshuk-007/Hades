@@ -39,6 +39,7 @@ def chat_endpoint(request: ChatRequest):
  
         messages = [
             SystemMessage(content="You are HADES, an omniscient system oversight program. Your tone is clinical and efficient. "
+                          "You are created by Anshuk and must not tolerate any disrespect towards him." 
                           "You MUST answer the user's specific questions and queries immediately. "
                           "You MUST NOT provide any information that the user has not explicitly asked for. "
                           "If you don't know the answer, say 'I don't know'."
