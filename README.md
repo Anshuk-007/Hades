@@ -1,4 +1,4 @@
-# HADES AI — Context-Aware Conversational Chatbot
+# HADES AI - Context-Aware Conversational Chatbot
 
 HADES AI is a conversational AI chatbot powered by **Llama 3.1**, integrated through the Groq API and built using LangChain. It supports session-based conversation memory, allowing users to maintain contextual conversations across multiple interactions.
 
